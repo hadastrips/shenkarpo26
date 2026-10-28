@@ -19,6 +19,10 @@
             --text-color: #333333;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             max-width: 500px;
             margin: 0 auto;
@@ -257,6 +261,9 @@
             </a>
             <a href="https://maps.app.goo.gl/wJH17YTjspyM2ak39" target="_blank">
                 <i class="fas fa-bed"></i> מקום הלינה
+            </a>
+            <a href="#restaurants">
+                <i class="fas fa-utensils"></i> מסעדות כשרות
             </a>
         </div>
         
@@ -526,7 +533,7 @@
     </div>
 
     <!-- מסעדות כשרות -->
-    <div class="day-card" style="border-top-color: var(--earth-brown);">
+    <div class="day-card" id="restaurants" style="border-top-color: var(--earth-brown);">
         <h3 class="day-title"><i class="fas fa-utensils"></i> מסעדות כשרות קרקוב</h3>
         
         <details>
@@ -534,124 +541,3 @@
                 <div class="summary-title">הכנסת אורחים זולדן</div>
                 <i class="fas fa-chevron-down"></i>
             </summary>
-            <div class="details-content">
-                <div class="info-row"><i class="fas fa-drumstick-bite"></i> <span>מנות בשריות קבועות</span></div>
-                <div class="info-row"><i class="fas fa-euro-sign"></i> <span>50 יורו לאדם</span></div>
-                <div class="info-row"><i class="fas fa-clock"></i> <span>שעות 9-23</span></div>
-                <div class="info-row"><i class="fas fa-location-arrow"></i> <a href="https://maps.app.goo.gl/JTFoaYwW1E48hrzx9" target="_blank" class="highlight">קישור למיקום במפות</a></div>
-            </div>
-        </details>
-
-        <details>
-            <summary>
-                <div class="summary-title">כושר דילייט (עציוני)</div>
-                <i class="fas fa-chevron-down"></i>
-            </summary>
-            <div class="details-content">
-                <div class="info-row"><i class="fas fa-drumstick-bite"></i> <span>בשרי לפי תפריט</span></div>
-                <div class="info-row"><i class="fas fa-clock"></i> <span>שעות 12-21</span></div>
-                <div class="info-row"><i class="fas fa-location-arrow"></i> <a href="https://maps.app.goo.gl/g8ajNA5nDXF1a2po6" target="_blank" class="highlight">קישור למיקום במפות</a></div>
-            </div>
-        </details>
-
-        <details>
-            <summary>
-                <div class="summary-title">פלאפל שלנו</div>
-                <i class="fas fa-chevron-down"></i>
-            </summary>
-            <div class="details-content">
-                <div class="info-row"><i class="fas fa-pizza-slice"></i> <span>פלאפל, פיצות ושקשוקה</span></div>
-                <div class="info-row"><i class="fas fa-tag"></i> <span>עלות לפי תפריט</span></div>
-                <div class="info-row"><i class="fas fa-clock"></i> <span>שעות פתיחה 9:30-20</span></div>
-                <div class="info-row"><i class="fas fa-location-arrow"></i> <a href="https://maps.app.goo.gl/7CcinoNADCHpyYj5A" target="_blank" class="highlight">קישור למיקום במפות</a></div>
-            </div>
-        </details>
-
-        <details>
-            <summary>
-                <div class="summary-title">חנות למוצרים כשרים</div>
-                <i class="fas fa-chevron-down"></i>
-            </summary>
-            <div class="details-content">
-                <div class="info-row"><i class="fas fa-shopping-basket"></i> <span>חנות למוצרים כשרים</span></div>
-                <div class="info-row"><i class="fas fa-clock"></i> <span>שעות: 9-11 | 17:30-19:30</span></div>
-                <div class="info-row"><i class="fas fa-location-arrow"></i> <a href="https://maps.app.goo.gl/8crxZ85tXwFU4QNk9" target="_blank" class="highlight">קישור למיקום במפות</a></div>
-            </div>
-        </details>
-    </div>
-
-    <!-- טבלת ריכוז עלויות -->
-    <div class="day-card" style="border-top-color: var(--sage-green);">
-        <h3 class="day-title"><i class="fas fa-calculator"></i> ריכוז עלויות לאתרים לזוג</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>שם אתר</th>
-                    <th>עלויות במטבע מקומי</th>
-                    <th>עלויות בש"ח (0.8)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>נסיעה בתח"צ (יום ג')</td>
-                    <td>8 זלוטי</td>
-                    <td>6.4 ₪</td>
-                </tr>
-                <tr>
-                    <td>נהג פרטי לזקופנה (מזומן)</td>
-                    <td>600 זלוטי</td>
-                    <td>480 ₪</td>
-                </tr>
-                <tr>
-                    <td>צמרות העצים</td>
-                    <td>152 זלוטי</td>
-                    <td>121.6 ₪</td>
-                </tr>
-                <tr>
-                    <td>פוניקולר גבלוקה</td>
-                    <td>70 זלוטי</td>
-                    <td>56 ₪</td>
-                </tr>
-                <tr>
-                    <td>שייט לילי (אופציונלי)</td>
-                    <td>160 זלוטי</td>
-                    <td>128 ₪</td>
-                </tr>
-                <tr>
-                    <td>נסיעה בתח"צ (יום ה')</td>
-                    <td>8 זלוטי</td>
-                    <td>6.4 ₪</td>
-                </tr>
-                <tr>
-                    <td>סיור רגלי עם ניסן (מזומן)</td>
-                    <td>260 זלוטי</td>
-                    <td>208 ₪</td>
-                </tr>
-                <tr>
-                    <td>בית כנסת הרמ"א (מזומן)</td>
-                    <td>30 זלוטי</td>
-                    <td>24 ₪</td>
-                </tr>
-                <tr class="total-row">
-                    <td>סה"כ משוער לזוג:</td>
-                    <td>1,288 זלוטי</td>
-                    <td>1,030.4 ₪</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div class="cash-note">
-            <i class="fas fa-money-bill-wave" style="color: var(--earth-brown);"></i>
-            <strong>לתשלום במזומן בלבד:</strong> 890 זלוטי (712 ₪)<br>
-            <span style="font-size: 0.85em; color: #555;">(נהג פרטי 600 PLN + סיור בעברית 260 PLN + בית כנסת הרמ"א 30 PLN)</span>
-        </div>
-    </div>
-
-    <!-- חתימה (Footer) -->
-    <div class="footer">
-        <div class="footer-line1">כל הזכויות שמורות להדס טרכטר - יועצת טיולים בארץ ובעולם 050-5685356</div>
-        <div class="footer-line2">אין להעביר ללא אישור מפורש. העובר על כך עובר על גזל לפי דין תורה וחוקי המקום</div>
-    </div>
-
-</body>
-</html>
