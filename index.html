@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>טיול זוגי שנקר בקרקוב</title>
+    <!-- Font Awesome 6.4.0 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Assistant -->
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* פלטת צבעים מבוקשת */
+            --dark-brown: #5c4033;
+            --blue: #3a6073;
+            --sage-green: #8f9e8b;
+            --light-gray: #f7f7f7;
+            --text-color: #333333;
+        }
+
+        body {
+            max-width: 500px;
+            margin: 0 auto;
+            font-family: 'Assistant', sans-serif;
+            background-color: var(--light-gray);
+            color: var(--text-color);
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+
+        /* הדר */
+        header {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid var(--sage-green);
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: var(--dark-brown);
+            background-color: transparent;
+            margin: 5px 0;
+            font-size: 1.8em;
+        }
+
+        h2 {
+            color: var(--blue);
+            background-color: transparent;
+            margin: 0 0 15px 0;
+            font-size: 1.2em;
+            font-weight: 400;
+        }
+
+        /* קישורים מהירים */
+        .quick-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .quick-links a, .quick-links span {
+            background-color: var(--sage-green);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* כרטיסיות הימים */
+        .day-card {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            padding: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-top: 6px solid var(--blue);
+        }
+
+        .day-title {
+            color: var(--dark-brown);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        /* חלוניות הלו"ז (Details/Summary) */
+        details {
+            margin-bottom: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background: #ffffff;
+            overflow: hidden;
+        }
+
+        summary {
+            background: #fdfdfd;
+            padding: 12px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            list-style: none; /* הסרת החץ הדיפולטיבי */
+        }
+        
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        summary .summary-title {
+            color: var(--blue);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        summary .fa-chevron-down {
+            color: var(--sage-green);
+            transition: transform 0.3s ease;
+        }
+
+        details[open] summary .fa-chevron-down {
+            transform: rotate(180deg);
+        }
+
+        .details-content {
+            padding: 15px;
+            border-top: 1px solid #e0e0e0;
+            background: #fafafa;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+        
+        .info-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-row i {
+            color: var(--sage-green);
+            margin-top: 4px;
+            min-width: 16px;
+            text-align: center;
+        }
+
+        a.highlight {
+            color: var(--dark-brown);
+            font-weight: 700;
+            text-decoration: underline;
+            text-decoration-color: var(--sage-green);
+            text-underline-offset: 4px;
+        }
+
+        /* טבלת עלויות */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.9em;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: right;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: var(--sage-green);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .total-row {
+            font-weight: 700;
+            background-color: #f0f0f0;
+            color: var(--dark-brown);
+        }
+
+        /* פוטר - חתימה */
+        .footer {
+            text-align: center;
+            margin: 40px 0 20px 0;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        .footer-line1 {
+            color: var(--dark-brown);
+            font-size: 1.1em;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .footer-line2 {
+            color: #888888;
+            font-size: 0.85em;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <img src="1.jpg" alt="Logo" class="logo">
+        <h1>טיול זוגי שנקר בקרקוב</h1>
+        <h2>3-6/11/26</h2>
+        
+        <div class="quick-links">
+            <a href="https://www.accuweather.com/en/pl/krakow/274455/weather-forecast/274455" target="_blank">
+                <i class="fas fa-cloud-sun"></i> תחזית
+            </a>
+            <a href="https://maps.app.goo.gl/wJH17YTjspyM2ak39" target="_blank">
+                <i class="fas fa-bed"></i> לינה
+            </a>
+        </div>
+        
+        <div class="day-card" style="border-top-color: var(--sage-green); padding: 10px; text-align: center; font-size: 0.9em;">
+            <p style="margin: 5px 0;"><strong>שקיעה:</strong> 16:10 | <strong>מט"ח:</strong> זלוטי 1 = 0.8 ש"ח</p>
+            <p style="margin: 5px 0;"><strong>אפליקציות חובה:</strong> מוניות Bolt | Uber</p>
+        </div>
+    </header>
+
+    <!-- יום שלישי -->
+    <div class="day-card">
+        <h3 class="day-title">יום שלישי 3/11 - נחיתה והיכרות העיר</h3>
+        
+        <details>
+            <summary>
+                <div class="summary-title"><i class="fas fa-plane"></i> 8:00-14:00 טיסה ונחיתה</div>
+                <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="details-content">
+                <div class="info-row"><i class="fas fa-clock"></i> <span>8:00 הגעה לשדה התעופה, טרמינל 1</span></div>
+                <div class="info-row"><i class="fas fa-plane-departure"></i> <span>11:00 המראה לקרקוב</span></div>
+                <div class="info-row"><i class="fas fa-plane-arrival"></i> <span>14:00 נחיתה בקרקוב</span></div>
+            </div>
+        </details>
+
+        <details>
+            <summary>
+                <div class="summary-title"><i class="fas fa-suitcase"></i> 15:30-16:30 הגעה לדירה</div>
+                <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="details-content">
+                <div class="info-row"><i class="fas fa-taxi"></i> <span>מוניות בולט מחניון P3 לפי שילוט בטרמינל (Taxi Pick-up)</span></div>
+                <div class="info-row"><i class="fas fa-map-marker-alt"></i> <span>כתובת: Kupa 6, 31-057 Kraków</span></div>
+                <div class="info-row"><i class="fas fa-bed"></i> <span>16:00-16:30 התרעננות והנחת מזוודות לפני יציאה לעיר</span></div>
+                <div class="info-row"><i class="fas fa-location-arrow"></i> <a href="https://maps.app.goo.gl/wJH17YTjspyM2ak39" target="_blank" class="highlight">ניווט לדירה</a></div>
+            </div>
+        </details>
+
+        <details>
+            <summary>
+                <div class="summary-title"><i class="fas fa-city"></i> 16:30-17:30 כיכר העיר הגדולה</div>
+                <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="details-content">
+                <div class="info-row"><i class="fas fa-info-circle"></i> <span>דוכנים, שווקים ואווירה בכיכר העיר המרכזית.</span></div>
+                <div class="info-row"><i class="fas fa-bus"></i> <span>הגעה בתח"צ, כ-20 דק'. עלות 4 זלוטי לאדם (נסיעה של 20 דק').</span></div>
+                <div class="info-row"><i class="fas fa-location-arrow"></i> <a href="https://maps.app.goo.gl/SM5XUW6WciWrtMG88" target="_blank" class="highlight">ניווט לכיכר העיר</a></div>
+            </div>
+        </details>
+
+        <details>
+            <summary>
+                <div class="summary-title"><i class="fas fa-shopping-bag"></i> 18:00-20:00 קניון פקטורי אאוטלט</div>
+                <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="details-content">
+                <div class="info-row"><i class="fas fa-info-circle"></i> <span>קניון אאוטלט למותגי ספורט ועודפים.</span></div>
+                <div class="info-row"><i class="fas fa-clock"></i> <span>שעות פתיחה: 10:00 - 21:00</span></div>
+                <div class="info-row"><i class="fas fa-taxi"></i> <span>כחצי שעה נסיעה, מומלץ לקחת מונית.</span></div>
+                <div class="info-row"><i class="fas fa-location-arrow"></i> <a href="https://maps.app.goo.gl/PEuFpSRNTAa41NZh9" target="_blank" class="highlight">ניווט לקניון</a></div>
+            </div>
+        </details>
+
+        <details>
+            <summary>
+                <div class="summary-title"><i class="fas fa-utensils"></i> 20:30 ארוחת ערב</div>
+                <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="details-content">
+                <div class="info-row"><i class="fas fa-star-of-david"></i> <span>פירוט מסעדות כשרות מופיע בתחתית העמוד.</span></div>
+                <div class="info-row"><i class="fas fa-moon"></i> <span>22:00 לילה טוב!</span></div>
+            </div>
+        </details>
+    </div>
+
+    <!-- יום רביעי -->
+    <div class="day-card">
+        <h3 class="day-title">יום רביעי 4/11 - טיול יום לטבע</h3>
+        
+        <details>
+            <summary>
+                <div class="summary-title"><i class="fas fa-car"></i> 9:00 נסיעה לאזור זקופנה</div>
+                <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="details-content">
+                <div class="info-row"><i class="fas fa-money-bill-wave"></i> <span>טיול יום עם נהג פרטי, 600 זלוטי - תשלום במזומן!</span></div>
+            </div>
+        </details>
+
+        <details>
+            <summary>
+                <div class="summary-title"><i class="fas fa-tree"></i> 11:00-13:00 צמרות העצים</div>
+                <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="details-content">
+                <div class="info-row"><i class="fas fa-info-circle"></i> <span>מגדל תצפית מרשים בגובה צמרות העצים.</span></div>
+                <div class="info-row"><i class="fas fa-clock"></i> <span>שעות פתיחה: 09:00 - 17:00</span></div>
+                <div class="info-row"><i class="fas fa-ticket-alt"></i> <span>עלות: 76 זלוטי לאדם.</span></div>
+                <div class="info-row"><i class="fas fa-location-arrow"></i> <a href="https://maps.app.goo.gl/fkjgoFk8DUQ8gku86" target="_blank" class="highlight">ניווט לאתר</a></div>
+            </div>
+        </details>
+        
+        <details>
+            <summary>
+                <div class="summary-title"><i class="fas fa-camera"></i> 13:00-13:30 נקודת תצפית הרים</div>
+                <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="details-content">
+                <div class="info-row"><i class="fas fa-info-circle"></i> <span>נקודת עצירה יפה לתמונות (אופציונלי).</span></div>
+                <div class="info-row"><i class="fas fa-location-arrow"></i> <a href="https://maps.app.goo.gl/qRnuRBsT953irNjM8" target="_blank" class="highlight">ניווט לתצפית</a></div>
+            </div>
+        </details>
+
+        <details>
+            <summary>
+                <div class="summary-title"><i class="fas fa-mountain"></i> 14:00-17:00 זקופנה והר גבלוקה</div>
+                <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="details-content">
+                <div class="info-row"><i class="fas fa-tram"></i> <span><strong>פוניקולר לתצפית:</strong> עלות 35 זלוטי לאדם (הלו"ש). פתוח 9-20. <br><a href="https://maps.app.goo.gl/Xxawe7tu8qgMFvbQ7" target="_blank" class="highlight">ניווט לפוניקולר</a></span></div>
+                <div class="info-row"><i class="fas fa-store"></i> <span><strong>שוק איכרים:</strong> תוצרת מקומית, כניסה חופשית, פתוח 9-19. <br><a href="https://maps.app.goo.gl/maH6hugwKD8htCPB8" target="_blank" class="highlight">ניווט לשוק</a></span></div>
+                <div class="info-row"><i class="fas fa-walking"></i> <span><strong>מדרחוב זקופנה:</strong> חנויות ואווירה מקומית, כניסה חופשית. <br><a href="https://maps.app.goo.gl/vZabb1HNTZTA5eGN7" target="_blank" class="highlight">ניווט למדרחוב</a></span></div>
+                <div class="info-row"><i class="fas fa-car-side"></i> <span>עד 17:00 חזרה לנקודת האיסוף ונסיעה של כשעתיים לקרקוב.</span></div>
+            </div>
+        </details>
+
+        <details>
+            <summary>
+                <div class="summary-title"><i class="fas fa-ship"></i> 21:00-22:00 שייט לילי על הויסלה</div>
+                <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="details-content">
+                <div class="info-row"><i class="fas fa-info-circle"></i> <span>שייט לילי אופציונלי בנהר, נמשך כשעה.</span></div>
+                <div class="info-row"><i class="fas fa-clock"></i> <span>שעות פתיחה: 10:00 - 22:00 (מומלץ להגיע 15 דק' לפני)</span></div>
+                <div class="info-row"><i class="fas fa-ticket-alt"></i> <span>עלות: 80 זלוטי לאדם. הליכה של 15 דק' מהמסעדות הכשרות.</span></div>
+                <div class="info-row"><i class="fas fa-location-arrow"></i> <a href="https://maps.app.goo.gl/pc7qtK3XVzSAJ4247" target="_blank" class="highlight">ניווט לשייט</a></div>
+            </div>
+        </details>
+    </div>
+
+    <!-- יום חמישי -->
+    <div class="day-card">
+        <h3 class="day-title">יום חמישי 5/11 - קרקוב לעומק ושופינג</h3>
+        
+        <details>
+            <summary>
+                <div class="summary-title"><i class="fas fa-map-signs"></i> 9:45-12:45 סיור רגלי בעיר</div>
+                <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="details-content">
+                <div class="info-row"><i class="fas fa-bus"></i> <span>9:15 יציאה בתח"צ (15 דק'), כרטיס 4 זלוטי. <a href="https://maps.app.goo.gl/NCHJSuuUh7NpP8Yu8" target="_blank" class="highlight">ניווט לנקודת התחלה</a></span></div>
+                <div class="info-row"><i class="fas fa-language"></i> <span>סיור בעברית עם ניסן בקרקוב העתיקה.</span></div>
+                <div class="info-row"><i class="fas fa-money-bill-wave"></i> <span>עלות: 130 זלוטי לאדם, תשלום במזומן!</span></div>
+                <div class="info-row"><i class="fab fa-whatsapp"></i> <a href="https://wa.me/48519688169" target="_blank" class="highlight">וואטסאפ לניסן</a></div>
+            </div>
+        </details>
+
+        <details>
+            <summary>
+                <div class="summary-title"><i class="fas fa-synagogue"></i> 13:00-14:00 בית כנסת הרמ"א</div>
+                <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="details-content">
+                <div class="info-row"><i class="fas fa-info-circle"></i> <span>תפילת מנחה, קבר הרמ"א מיד ביציאה, בעל התוספות יו"ט מצד שמאל עד הסוף ויוסלה קמצן קדוש בסמוך אליו.</span></div>
+                <div class="info-row"><i class="fas fa-clock"></i> <span>שעות פתיחה: 10:00 - 18:00</span></div>
+                <div class="info-row"><i class="fas fa-ticket-alt"></i> <span>עלות: 15 זלוטי לאדם, מזומן.</span></div>
+                <div class="info-row"><i class="fas fa-location-arrow"></i> <a href="https://maps.app.goo.gl/EJXks7ZSwXBhuC5U8" target="_blank" class="highlight">ניווט לבית הכנסת</a></div>
+            </div>
+        </details>
+
+        <details>
+            <summary>
+                <div class="summary-title"><i class="fas fa-shopping-cart"></i> 14:30-18:30 שופינג בקניון בונרקה</div>
+                <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="details-content">
+                <div class="info-row"><i class="fas fa-info-circle"></i> <span>קניון ענק עם פריימרק, טיקיי מקס, ספורה ועוד. מומלצת חנות Smyk Megastore (קומה 2).</span></div>
+                <div class="info-row"><i class="fas fa-clock"></i> <span>שעות פתיחה: 10:00 - 21:00</span></div>
+                <div class="info-row"><i class="fas fa-taxi"></i> <span>מומלץ להגיע ולחזור עם מונית.</span></div>
+                <div class="info-row"><i class="fas fa-location-arrow"></i> <a href="https://maps.app.goo.gl/qcZgxsHLSWWjf1td6" target="_blank" class="highlight">ניווט לקניון</a></div>
+            </div>
+        </details>
+        
+        <details>
+            <summary>
+                <div class="summary-title"><i class="fas fa-home"></i> 19:00 התאוששות ואריזות</div>
+                <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="details-content">
+                <div class="info-row"><i class="fas fa-utensils"></i> <span>19:30-20:30 ארוחת ערב אחרונה.</span></div>
+                <div class="info-row"><i class="fas fa-suitcase"></i> <span>אריזות ושינה מוקדמת לקראת יציאה לשדה התעופה.</span></div>
+            </div>
+        </details>
+    </div>
+
+    <!-- יום שישי -->
+    <div class="day-card">
+        <h3 class="day-title">יום שישי 6/11 - חוזרים הביתה</h3>
+        
+        <details>
+            <summary>
+                <div class="summary-title"><i class="fas fa-plane-departure"></i> 2:00 נסיעה לשדה והמראה</div>
+                <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="details-content">
+                <div class="info-row"><i class="fas fa-taxi"></i> <span>2:00 יציאה, מומלץ להזמין מונית בולט מראש.</span></div>
+                <div class="info-row"><i class="fas fa-receipt"></i> <span>2:30 עמדת tax free נמצאת מצד ימין לעמדות הצ'ק אין.</span></div>
+                <div class="info-row"><i class="fas fa-plane"></i> <span>5:35 המראה חזרה.</span></div>
+                <div class="info-row"><i class="fas fa-home"></i> <span>10:15 חזרה הביתה, ברוכים השבים לישראל!</span></div>
+            </div>
+        </details>
+    </div>
+
+    <!-- מסעדות כשרות -->
+    <div class="day-card" style="border-top-color: var(--dark-brown);">
+        <h3 class="day-title"><i class="fas fa-star-of-david"></i> מסעדות כשרות בקרקוב</h3>
+        
+        <details>
+            <summary>
+                <div class="summary-title">הכנסת אורחים זולדן</div>
+                <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="details-content">
+                <div class="info-row"><i class="fas fa-utensils"></i> <span>מנות בשריות קבועות, 50 יורו לאדם.</span></div>
+                <div class="info-row"><i class="fas fa-clock"></i> <span>שעות: 09:00 - 23:00</span></div>
+                <div class="info-row"><i class="fas fa-location-arrow"></i> <a href="https://maps.app.goo.gl/JTFoaYwW1E48hrzx9" target="_blank" class="highlight">ניווט למסעדה</a></div>
+            </div>
+        </details>
+
+        <details>
+            <summary>
+                <div class="summary-title">כושר דילייט (עציוני)</div>
+                <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="details-content">
+                <div class="info-row"><i class="fas fa-utensils"></i> <span>בשרי לפי תפריט.</span></div>
+                <div class="info-row"><i class="fas fa-clock"></i> <span>שעות: 12:00 - 21:00</span></div>
+                <div class="info-row"><i class="fas fa-location-arrow"></i> <a href="https://maps.app.goo.gl/g8ajNA5nDXF1a2po6" target="_blank" class="highlight">ניווט למסעדה</a></div>
+            </div>
+        </details>
+
+        <details>
+            <summary>
+                <div class="summary-title">פלאפל שלנו</div>
+                <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="details-content">
+                <div class="info-row"><i class="fas fa-utensils"></i> <span>פלאפל, פיצות ושקשוקה. עלות לפי תפריט.</span></div>
+                <div class="info-row"><i class="fas fa-clock"></i> <span>שעות: 09:30 - 20:00</span></div>
+                <div class="info-row"><i class="fas fa-location-arrow"></i> <a href="https://maps.app.goo.gl/7CcinoNADCHpyYj5A" target="_blank" class="highlight">ניווט למסעדה</a></div>
+            </div>
+        </details>
+    </div>
+
+    <!-- טבלת ריכוז עלויות -->
+    <div class="day-card" style="border-top-color: var(--sage-green);">
+        <h3 class="day-title"><i class="fas fa-calculator"></i> ריכוז עלויות לאתרים לזוג</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>שם אתר</th>
+                    <th>במטבע מקומי</th>
+                    <th>בש"ח (0.8)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>נסיעה בתח"צ (יום ג')</td>
+                    <td>8 זלוטי</td>
+                    <td>6.4 ₪</td>
+                </tr>
+                <tr>
+                    <td>נהג פרטי לזקופנה</td>
+                    <td>600 זלוטי</td>
+                    <td>480 ₪</td>
+                </tr>
+                <tr>
+                    <td>צמרות העצים</td>
+                    <td>152 זלוטי</td>
+                    <td>121.6 ₪</td>
+                </tr>
+                <tr>
+                    <td>פוניקולר גבלוקה</td>
+                    <td>70 זלוטי</td>
+                    <td>56 ₪</td>
+                </tr>
+                <tr>
+                    <td>שייט לילי (אופציונלי)</td>
+                    <td>160 זלוטי</td>
+                    <td>128 ₪</td>
+                </tr>
+                <tr>
+                    <td>נסיעה בתח"צ (יום ה')</td>
+                    <td>8 זלוטי</td>
+                    <td>6.4 ₪</td>
+                </tr>
+                <tr>
+                    <td>סיור רגלי עם ניסן</td>
+                    <td>260 זלוטי</td>
+                    <td>208 ₪</td>
+                </tr>
+                <tr>
+                    <td>בית כנסת הרמ"א</td>
+                    <td>30 זלוטי</td>
+                    <td>24 ₪</td>
+                </tr>
+                <tr class="total-row">
+                    <td>סה"כ משוער לזוג:</td>
+                    <td>1,288 זלוטי</td>
+                    <td>1,030.4 ₪</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- חתימה (Footer) -->
+    <div class="footer">
+        <div class="footer-line1">כל הזכויות שמורות להדס טרכטר - יועצת טיולים בארץ ובעולם 050-5685356</div>
+        <div class="footer-line2">אין להעביר ללא אישור מפורש. העובר על כך עובר על גזל לפי דין תורה וחוקי המקום</div>
+    </div>
+
+</body>
+</html>
